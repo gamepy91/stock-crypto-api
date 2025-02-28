@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: stock-crypto-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+    environment:
+      - PORT=3000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  redis:
+    image: "redis:latest"
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
